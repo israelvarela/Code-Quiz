@@ -4,19 +4,19 @@ const progressText = document.getElementById('progressText');
 const questionCounterText = document.getElementById('questionCounter');
 const scoreText = document.getElementById('score');
 
-
 var secondsLeft = 60;
 var timerInterval;
 function setTime() {
-  timerInterval = window.setInterval(function () {
-    secondsLeft--;
-    var Elspt = document.getElementById("time");
-    Elspt.innerHTML = secondsLeft + " seconds left";
-    if (secondsLeft === 0 || secondsLeft < 0)  {
-      clearInterval(timerInterval);
-      sendMessage();
-    }
-  }, 1000);
+    timerInterval = window.setInterval(function () {
+        secondsLeft--;
+        var Elspt = document.getElementById("time");
+        Elspt.innerHTML = secondsLeft + " seconds left";
+        if (secondsLeft === 0 || secondsLeft < 0) {
+            clearInterval(timerInterval);
+            //sendMessage("Times Up!");
+            setTimeout(function() { alert("Time's Up!"); }, time);
+        }
+    }, 1000);
 }
 
 
@@ -26,6 +26,7 @@ let acceptingAnswers = false;
 let score = 0;
 let questionCounter = 0;
 let availableQuestions = [];
+var answer = "correct";
 
 let questions = [
     {
@@ -34,7 +35,7 @@ let questions = [
         choice2: 'Neville Longbottom',
         choice3: 'Draco Malfoy',
         choice4: 'Hermione Granger',
-        answer: 'Draco Malfoy'
+        answer: 3
     },
     {
         question: 'What is the color of Donald Duck’s bowtie',
@@ -42,7 +43,7 @@ let questions = [
         choice2: 'Yellow',
         choice3: 'Blue',
         choice4: 'White',
-        answer: 'Red'
+        answer: 1
     },
     {
         question: 'What was the name of the band Lionel Richie was a part of?',
@@ -50,7 +51,7 @@ let questions = [
         choice2: 'Spectrums',
         choice3: 'Commodores',
         choice4: 'The Marshalle  Tucker Band',
-        answer: 'Commodores'
+        answer: 3
     },
     {
         question: 'Which animal does not appear in the Chinese zodiac?',
@@ -58,7 +59,7 @@ let questions = [
         choice2: 'Rabbit',
         choice3: 'Dog',
         choice4: 'Hummingbird',
-        answer: 'Hummingbird'
+        answer: 1
     },
     {
         question: 'Which country held the 2016 Summer Olympics?',
@@ -66,7 +67,7 @@ let questions = [
         choice2: 'Ireland',
         choice3: 'Brazil',
         choice4: 'Italy',
-        answer: 'Brazil'
+        answer: 3
     },
     {
         question: 'Which planet is the hottest?',
@@ -74,7 +75,7 @@ let questions = [
         choice2: 'Saturn',
         choice3: 'Mercury',
         choice4: 'Mars',
-        answer: 'Venus'
+        answer: 1
     },
     {
         question: 'Who was the only U.S. President to resign?',
@@ -82,7 +83,7 @@ let questions = [
         choice2: 'Richard Nixon',
         choice3: 'George W. Bush',
         choice4: 'Barack Obama',
-        answer: 'Nixon'
+        answer: 2
     },
     {
         question: 'What does the “D” in “D-Day” stand for?',
@@ -90,7 +91,7 @@ let questions = [
         choice2: 'Dark',
         choice3: 'Denmark',
         choice4: 'Dunkirk',
-        answer: 'Dunkirk'
+        answer: 4
     },
     {
         question: 'In Pirates of the Caribbean, what was the name of Captain Jack Sparrow’s ship?',
@@ -98,7 +99,7 @@ let questions = [
         choice2: 'The Black Pearl',
         choice3: 'The Black Python',
         choice4: 'The Slytherin',
-        answer: 'The-Black-Pearl'
+        answer: 2
     },
     {
         question: 'What is the rarest blood type?',
@@ -106,7 +107,7 @@ let questions = [
         choice2: 'A',
         choice3: 'B',
         choice4: 'AB-Negative',
-        answer: 'AB-Negative'
+        answer: 4
     }
 ];
 
@@ -159,11 +160,13 @@ choices.forEach(choice => {
         console.log(selectedAnswer);
 
         const classToApply =
-            selectedAnswer === currentQuestion.answer ? "correct" : "incorrect";
+            selectedAnswer == currentQuestion.answer ? "correct" : "incorrect";
 
         if (classToApply === "correct") {
             incrementScore(CORRECT_BONUS);
-        }
+        } else {
+            secondsLeft = secondsLeft - 5;
+        };
 
         selectedChoice.parentElement.classList.add(classToApply);
 
