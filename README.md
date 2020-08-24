@@ -18,3 +18,4 @@ WHEN the game is over
 THEN I can save my initials and score
 ```
 
+![quiz-app](https://user-images.githubusercontent.com/62815477/90999189-93bbe180-e58b-11ea-9132-b03adfc2e48d.png)
